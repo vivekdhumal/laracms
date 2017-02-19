@@ -24,13 +24,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
 	Route::get('/categories', 'CategoryController@desk')->name('admin.categories');
 
-	Route::resource('/blog-categories', 'CategoryController', [	'except' => ['create', 'edit', 'show'] ]);
+	Route::resource('/blog-categories', 'CategoryController', ['except' => ['create', 'edit', 'show'] ]);
 
 	Route::get('/blog-categories/all', 'CategoryController@allCategories');
 
 	Route::get('/tags', 'TagController@desk')->name('admin.tags');
 
-	Route::resource('/blog-tags', 'TagController', [ 'except' => ['create', 'edit', 'show'] ]);
+	Route::resource('/blog-tags', 'TagController', ['except' => ['create', 'edit', 'show'] ]);
 
 	Route::get('/blog-tags/all', 'TagController@allTags');
 
