@@ -18593,18 +18593,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -19032,7 +19020,7 @@ exports = module.exports = __webpack_require__(18)();
 
 
 // module
-exports.push([module.i, "\nform .multi-select {\n\theight: 150px;\n}\n.overlay {\n\theight: 100%;\n    width: 0;\n    position: fixed; /* Stay in place */\n    z-index: 1; /* Sit on top */\n    left: 0;\n    top: 0;\n    background-color: rgb(0,0,0); /* Black fallback color */\n    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */\n    overflow-x: hidden; /* Disable horizontal scroll */\n    -webkit-transition: 0.5s;\n    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */\n}\n", ""]);
+exports.push([module.i, "\nform .multi-select {\n\theight: 150px;\n}\n", ""]);
 
 // exports
 
