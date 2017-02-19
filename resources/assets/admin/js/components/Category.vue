@@ -33,7 +33,7 @@
 
                                 <span class="text-danger" v-if="form.errors.has('slug')" v-text="form.errors.get('slug')"></span>
 
-                                <span class="help-block">category/{{ form.slug }}</span>
+                                <span class="help-block">{{ site_url }}/category/{{ form.slug }}</span>
                             </div>
 
                             <input type="submit" :disabled="isLoading" class="btn btn-primary" :value="form.action">
@@ -94,6 +94,8 @@
     export default {
         data() {
             return {
+                site_url: window.Laravel.site_url,
+                
                 categories: [],
 
                 isLoading: false,

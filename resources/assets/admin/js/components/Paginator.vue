@@ -28,7 +28,7 @@
 		],
 
 		created() {
-			console.log(this.nextPageUrl);
+			//console.log(this.nextPageUrl);
 		},
 
 		methods: {

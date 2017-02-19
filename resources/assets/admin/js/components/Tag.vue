@@ -23,7 +23,7 @@
 
                                 <span class="text-danger" v-if="form.errors.has('slug')" v-text="form.errors.get('slug')"></span>
 
-                                <span class="help-block">tag/{{ form.slug }}</span>
+                                <span class="help-block">{{ site_url }}/tag/{{ form.slug }}</span>
                             </div>
 
                             <input type="submit" :disabled="isLoading" class="btn btn-primary" :value="form.action">
@@ -82,13 +82,13 @@
     export default {
         data() {
             return {
+                site_url: window.Laravel.site_url,
+
                 tags: [],
 
                 isLoading: false,
 
                 isFetching: false,
-
-                parent_tags: [],
 
                 form: new Form({
                     id: '',
@@ -102,7 +102,7 @@
             }
         },
         created() {
-            this.listCategories();
+            this.listTags();
 
             Event.listen('onPageChanged', (data) => {
                 this.resetForm();
@@ -140,7 +140,7 @@
                             timer: 2000,
                             showConfirmButton: false
                         })
-                        this.listCategories();
+                        this.listTags();
                         this.resetForm();
                    } else {
                          swal({
@@ -190,7 +190,7 @@
                     Tag.delete(id)
                     .then(response => {
                         console.log(response);
-                        thisRef.listCategories();
+                        thisRef.listTags();
                         swal({
                             title: "Deleted!",
                             text: "Your record has been deleted.",
@@ -205,13 +205,12 @@
                 });
             },
 
-            listCategories() {
+            listTags() {
                 this.isFetching = true;
                 Tag.all()
                 .then(response => {
                     this.isFetching = false;
                     this.tags = response.data.tags;
-                    this.parent_tags = response.data.parent_tags;
                 });                
             }
         }

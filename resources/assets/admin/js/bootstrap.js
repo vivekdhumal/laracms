@@ -14,8 +14,6 @@ import 'bootstrap-sass';
 
 import 'sweetalert';
 
-import 'vue-html-editor';
-
 window._ = Lodash;
 
 window.$ = window.jQuery = JQuery;

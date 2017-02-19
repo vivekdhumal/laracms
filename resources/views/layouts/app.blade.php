@@ -17,6 +17,7 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
+            'site_url' => url('/'),
         ]) !!};
     </script>
 </head>
@@ -35,15 +36,17 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <router-link to="/" class="navbar-brand">
                         {{ config('app.name', 'Laravel') }}
-                    </a>
+                    </router-link>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         @if (Auth::check())
+                            <li><router-link to="/">Dashboard</router-link></li>
+
                             <li><router-link to="/posts">Posts</router-link></li>
 
                             <li><router-link to="/categories">Categories</router-link></li>

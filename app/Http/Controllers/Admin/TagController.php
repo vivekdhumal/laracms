@@ -22,7 +22,14 @@ class TagController extends Controller
     {
         $response['tags'] = Tag::paginate(10);
 
-    	return $response;
+        return $response;
+    }
+
+    public function allTags()
+    {
+        $response['tags'] = Tag::all();
+
+        return $response;
     }
 
     public function store(Request $request)

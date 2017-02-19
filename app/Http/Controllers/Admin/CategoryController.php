@@ -24,7 +24,14 @@ class CategoryController extends Controller
 
         $response['parent_categories'] = Category::where('parent', 0)->get();
 
-    	return $response;
+        return $response;
+    }
+
+    public function allCategories()
+    {
+        $response['categories'] = Category::all();
+
+        return $response;
     }
 
     public function store(Request $request)
