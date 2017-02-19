@@ -37,7 +37,7 @@
 						<td v-text="article.status"></td>
 						<td align="right">
                             <router-link :to="{ name: 'edit-post', params: { id: article.id } }" >Edit</router-link>&nbsp;&nbsp;
-                            <a href="javascript:;" class="text-danger">Delete</a>
+                            <a href="javascript:;" @click="deletePost(article.id)" class="text-danger">Delete</a>
                         </td>
 					</tr>
 				</tbody>
@@ -74,17 +74,55 @@
 				isFetching: false,
 			}
 		},
-		created() {
-			this.isFetching = true;
-			Article.all()
-			.then(response => {
-				this.isFetching = false;
-				this.articles = response.data;
-			});
+		created() {			
+			this.listPosts();
 
 			Event.listen('onPageChanged', (data) => {
                 this.articles = data;
             });
+		},
+
+		methods: {
+			listPosts() {
+				this.isFetching = true;
+				Article.all()
+				.then(response => {
+					this.isFetching = false;
+					this.articles = response.data;
+				});
+			},
+
+            deletePost(id) {
+                let thisRef = this;
+
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this data!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    showLoaderOnConfirm: true,
+                    closeOnConfirm: false
+                },
+                function(){
+                    Article.delete(id)
+                    .then(response => {
+                        console.log(response);
+                        thisRef.listPosts();
+                        swal({
+                            title: "Deleted!",
+                            text: "Your record has been deleted.",
+                            type: "success",
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                });
+            }
 		}
 	}
 </script>

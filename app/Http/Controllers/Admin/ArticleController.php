@@ -83,12 +83,57 @@ class ArticleController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+            'slug' => 'required|alpha_dash',
+        ]);
+
+        $article = Article::findOrFail($id);
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->excerpt = $request->input('excerpt');
+        $article->featured_image = $request->input('featured_image');
+        $article->slug = $request->input('slug');
+        $article->status = $request->input('status');
+        $article->save();
+
+        $categories = $request->input('categories');
+        $tags = $request->input('tags');
+
+        foreach ($categories as $category) {
+            \App\CategoryArticles::firstOrCreate(['category_id' => $category, 'article_id' => $article->id]);
+        }
+
+        foreach ($tags as $tag) {
+            \App\TagArticles::firstOrCreate(['tag_id' => $tag, 'article_id' => $article->id]);
+        }
+
+        \App\CategoryArticles::whereNotIn('category_id', $categories)
+        ->where('article_id', $article->id)
+        ->delete();
+
+        \App\TagArticles::whereNotIn('tag_id', $tags)
+        ->where('article_id', $article->id)
+        ->delete();
+
+        $response['error'] = false;
+
+        return response()->json($response);
 
     }
 
     public function destroy($id)
     {
+        $article = Article::findOrFail($id);
 
+        $article->categories()->delete();
+        $article->tags()->delete();
+        $article->delete();
+
+        $response['error'] = false;
+
+        return response()->json($response);
     }
 
     public function fileUpload(Request $request)

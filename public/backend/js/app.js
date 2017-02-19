@@ -18407,26 +18407,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-	data: function data() {
-		return {
-			articles: [],
+  data: function data() {
+    return {
+      articles: [],
 
-			isFetching: false
-		};
-	},
-	created: function created() {
-		var _this = this;
+      isFetching: false
+    };
+  },
+  created: function created() {
+    var _this = this;
 
-		this.isFetching = true;
-		__WEBPACK_IMPORTED_MODULE_0__models_Article__["a" /* default */].all().then(function (response) {
-			_this.isFetching = false;
-			_this.articles = response.data;
-		});
+    this.listPosts();
 
-		Event.listen('onPageChanged', function (data) {
-			_this.articles = data;
-		});
-	}
+    Event.listen('onPageChanged', function (data) {
+      _this.articles = data;
+    });
+  },
+
+
+  methods: {
+    listPosts: function listPosts() {
+      var _this2 = this;
+
+      this.isFetching = true;
+      __WEBPACK_IMPORTED_MODULE_0__models_Article__["a" /* default */].all().then(function (response) {
+        _this2.isFetching = false;
+        _this2.articles = response.data;
+      });
+    },
+    deletePost: function deletePost(id) {
+      var thisRef = this;
+
+      swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this data!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        showLoaderOnConfirm: true,
+        closeOnConfirm: false
+      }, function () {
+        __WEBPACK_IMPORTED_MODULE_0__models_Article__["a" /* default */].delete(id).then(function (response) {
+          console.log(response);
+          thisRef.listPosts();
+          swal({
+            title: "Deleted!",
+            text: "Your record has been deleted.",
+            type: "success",
+            timer: 2000,
+            showConfirmButton: false
+          });
+        }).catch(function (error) {
+          console.log(error);
+        });
+      });
+    }
+  }
 };
 
 /***/ }),
@@ -18441,6 +18478,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_Article__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_Category__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_Tag__ = __webpack_require__(16);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -18571,6 +18622,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			isSubmiting: false,
 
+			retreivingData: false,
+
 			categories: [],
 
 			tags: [],
@@ -18591,7 +18644,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				tags: []
 			}),
 
-			content: '',
+			content: null,
 
 			customToolbar: [['bold', 'italic', 'underline', 'strike', 'link'], [{ 'align': [] }], [{ 'header': 1 }, { 'header': 2 }], [{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'header': [1, 2, 3, 4, 5, 6, false] }], [{ 'color': [] }, { 'background': [] }], ['image', 'code-block'], ['clean']]
 		};
@@ -18601,33 +18654,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		console.log(this.id);
 
-		this.getCategories();
-		this.getTags();
-
 		if (this.id) {
-			console.log(this.categories.length);
-			if (this.categories.length > 0 && this.tags.length > 0) {
-				__WEBPACK_IMPORTED_MODULE_2__models_Article__["a" /* default */].edit(this.id).then(function (response) {
-					//this.$nextTick(() => {
-					console.log('working tick');
-					_this.form.title = response.data.article.title;
-					_this.form.content = _this.content = response.data.article.content;
-					_this.form.excerpt = response.data.article.excerpt;
-					_this.form.featured_image = response.data.article.featured_image;
-					_this.form.slug = response.data.article.slug;
-					_this.form.status = response.data.article.status;
-					_this.featured_image_path = response.data.article.featured_image_url;
-					_this.form.categories = response.data.categories;
-					_this.form.tags = response.data.tags;
-					console.log(_this.form);
-					//})
-					//console.log(response.data);
-				}).catch(function (error) {
-					console.log(error.response.data);
-				});
-			}
+			this.retreivingData = true;
+			__WEBPACK_IMPORTED_MODULE_2__models_Article__["a" /* default */].edit(this.id).then(function (response) {
+				_this.retreivingData = false;
+				_this.form.title = response.data.article.title;
+				_this.form.content = _this.content = response.data.article.content;
+				console.log(_this.content);
+				_this.form.excerpt = response.data.article.excerpt;
+				_this.form.featured_image = response.data.article.featured_image;
+				_this.form.slug = response.data.article.slug;
+				_this.form.status = response.data.article.status;
+				_this.featured_image_path = response.data.article.featured_image_url;
+				_this.getCategories(response.data.categories);
+				_this.getTags(response.data.tags);
+			}).catch(function (error) {
+				console.log(error.response.data);
+			});
 		} else {
-			console.log('add_mode');
+			this.getCategories();
+			this.getTags();
 		}
 	},
 
@@ -18640,12 +18686,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		generateSlug: function generateSlug() {
 			return this.form.slug = this.form.title.trim().toLowerCase().replace(/ /g, '-');
 		},
-
-
-		handleSavingContent: function handleSavingContent(value) {
-			console.log(value);
-		},
-
 		handleUpdatedContent: function handleUpdatedContent(value) {
 			this.form.content = value;
 		},
@@ -18653,18 +18693,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this2 = this;
 
 			this.isSubmiting = true;
-			var form_submit = this.form.submit('post', '/admin/blog-articles');
 
-			if (this.id) {
+			var form_submit = void 0,
+			    success_message = void 0;
+
+			console.log(this.id);
+
+			if (this.id > 0) {
 				form_submit = this.form.submit('patch', '/admin/blog-articles/' + this.id);
+				success_message = "Record has been updated";
+			} else {
+				form_submit = this.form.submit('post', '/admin/blog-articles');
+				success_message = "Record has been created";
 			}
 
 			form_submit.then(function (data) {
+				console.log(_this2.form);
 				_this2.isSubmiting = false;
 				if (!data.error) {
 					swal({
 						title: "Success",
-						text: "Record has been created",
+						text: success_message,
 						type: "success",
 						timer: 2000,
 						showConfirmButton: false
@@ -18688,15 +18737,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getCategories: function getCategories() {
 			var _this3 = this;
 
+			var selected_categories = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
 			__WEBPACK_IMPORTED_MODULE_3__models_Category__["a" /* default */].withoutPagination().then(function (response) {
 				_this3.categories = response.data.categories;
+				if (selected_categories) {
+					_this3.form.categories = selected_categories;
+				}
 			});
 		},
 		getTags: function getTags() {
 			var _this4 = this;
 
+			var selected_tags = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
 			__WEBPACK_IMPORTED_MODULE_4__models_Tag__["a" /* default */].withoutPagination().then(function (response) {
 				_this4.tags = response.data.tags;
+				if (selected_tags) {
+					_this4.form.tags = selected_tags;
+				}
 			});
 		},
 		onFileChange: function onFileChange(ele) {
@@ -18973,7 +19032,7 @@ exports = module.exports = __webpack_require__(18)();
 
 
 // module
-exports.push([module.i, "\nform .multi-select {\n\theight: 150px;\n}\n", ""]);
+exports.push([module.i, "\nform .multi-select {\n\theight: 150px;\n}\n.overlay {\n\theight: 100%;\n    width: 0;\n    position: fixed; /* Stay in place */\n    z-index: 1; /* Sit on top */\n    left: 0;\n    top: 0;\n    background-color: rgb(0,0,0); /* Black fallback color */\n    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */\n    overflow-x: hidden; /* Disable horizontal scroll */\n    -webkit-transition: 0.5s;\n    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */\n}\n", ""]);
 
 // exports
 
@@ -47394,7 +47453,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_c('form', {
+  }, [(_vm.retreivingData) ? _c('div', [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("Please wait..")])]) : _c('form', {
     attrs: {
       "method": "post",
       "enctype": "multipart/form-data"
@@ -47448,8 +47509,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "editor-toolbar": _vm.customToolbar
     },
     on: {
-      "editor-updated": _vm.handleUpdatedContent,
-      "save-content": _vm.handleSavingContent
+      "editor-updated": _vm.handleUpdatedContent
     }
   }), _vm._v(" "), _c('input', {
     directives: [{
@@ -48207,6 +48267,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-danger",
       attrs: {
         "href": "javascript:;"
+      },
+      on: {
+        "click": function($event) {
+          _vm.deletePost(article.id)
+        }
       }
     }, [_vm._v("Delete")])], 1)])
   }))]) : _c('div', [_c('h3', {

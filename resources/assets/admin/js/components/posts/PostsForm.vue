@@ -10,7 +10,10 @@
 		</div>
 
 		<div class="panel-body">
-			<form method="post" enctype="multipart/form-data" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
+			<div v-if="retreivingData">
+				<h3 class="text-center">Please wait..</h3>
+			</div>
+			<form v-else method="post" enctype="multipart/form-data" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
 				<div class="form-group">
 					<label>Title</label>
 
@@ -25,9 +28,8 @@
 					<vue-editor
 						:editor-content="content"
 						:use-save-button="false"
-						@editor-updated="handleUpdatedContent"
 						:editor-toolbar="customToolbar"
-						@save-content="handleSavingContent">						
+						@editor-updated="handleUpdatedContent">						
 					</vue-editor>
 
 					<input type="hidden" name="content" v-model="form.content">
@@ -109,6 +111,18 @@
 	form .multi-select {
 		height: 150px;
 	}
+	.overlay {
+		height: 100%;
+	    width: 0;
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    left: 0;
+	    top: 0;
+	    background-color: rgb(0,0,0); /* Black fallback color */
+	    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+	    overflow-x: hidden; /* Disable horizontal scroll */
+	    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+	}
 </style>
 
 <script>
@@ -130,6 +144,8 @@
 
 				isSubmiting : false,
 
+				retreivingData: false,
+
 				categories: [],
 
 				tags: [],
@@ -150,7 +166,7 @@
                     tags: [],
                 }),
 
-				content: '',
+				content: null,
 
 				customToolbar: [
 		            ['bold', 'italic', 'underline', 'strike', 'link'],
@@ -168,35 +184,28 @@
 		created() {
 			console.log(this.id);
 
-			this.getCategories();
-			this.getTags();
-
 			if(this.id) {
-				console.log(this.categories.length);
-				if(this.categories.length > 0 && this.tags.length > 0) {
-					Article.edit(this.id)
-					.then(response => {
-						//this.$nextTick(() => {
-							console.log('working tick');
-							this.form.title = response.data.article.title;
-							this.form.content = this.content = response.data.article.content;
-							this.form.excerpt = response.data.article.excerpt;
-							this.form.featured_image = response.data.article.featured_image;
-							this.form.slug = response.data.article.slug;
-							this.form.status = response.data.article.status;
-							this.featured_image_path = response.data.article.featured_image_url;
-							this.form.categories = response.data.categories;
-							this.form.tags = response.data.tags;
-							console.log(this.form);
-						//})
-						//console.log(response.data);
-					})
-					.catch(error => {
-						console.log(error.response.data);
-					});					
-				}
+				this.retreivingData = true;
+				Article.edit(this.id)
+				.then(response => {
+					this.retreivingData = false;
+					this.form.title = response.data.article.title;
+					this.form.content = this.content = response.data.article.content;
+					console.log(this.content);
+					this.form.excerpt = response.data.article.excerpt;
+					this.form.featured_image = response.data.article.featured_image;
+					this.form.slug = response.data.article.slug;
+					this.form.status = response.data.article.status;
+					this.featured_image_path = response.data.article.featured_image_url;					
+					this.getCategories(response.data.categories);
+					this.getTags(response.data.tags);
+				})
+				.catch(error => {
+					console.log(error.response.data);
+				});
 			} else {
-				console.log('add_mode');
+				this.getCategories();
+				this.getTags()
 			}
 		},
 
@@ -209,29 +218,33 @@
                 return this.form.slug = this.form.title.trim().toLowerCase().replace(/ /g, '-');
             },
 
-			handleSavingContent: function (value) {
-				console.log(value);
-			},
-
 			handleUpdatedContent(value) {
 				this.form.content = value;
 			},
 
 			onSubmit() {
 				this.isSubmiting = true;
-				let form_submit = this.form.submit('post', '/admin/blog-articles');
 
-				if(this.id) {
+				let form_submit, success_message;
+
+				console.log(this.id);
+
+				if(this.id > 0) {
 					form_submit = this.form.submit('patch', '/admin/blog-articles/'+this.id);
+					success_message = "Record has been updated";
+				} else {
+					form_submit = this.form.submit('post', '/admin/blog-articles');
+					success_message = "Record has been created";
 				}
 				
 				form_submit
 				.then(data => {
+					console.log(this.form);
 					this.isSubmiting = false;
 					if(!data.error) {
                         swal({
                             title: "Success",
-                            text: "Record has been created",
+                            text: success_message,
                             type: "success",
                             timer: 2000,
                             showConfirmButton: false
@@ -254,17 +267,23 @@
 				})
 			},
 
-			getCategories() {
+			getCategories(selected_categories = false) {
 				Category.withoutPagination()
                 .then(response => {
                     this.categories = response.data.categories;
+                    if(selected_categories) {
+                    	this.form.categories = selected_categories;
+                    }
                 });
 			},
 
-			getTags() {
+			getTags(selected_tags = false) {
 				 Tag.withoutPagination()
                 .then(response => {
                     this.tags = response.data.tags;
+                    if(selected_tags) {
+                    	this.form.tags = selected_tags;
+                    }
                 });  
 			},
 
