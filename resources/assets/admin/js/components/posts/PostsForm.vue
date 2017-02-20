@@ -29,7 +29,8 @@
 						:editor-content="content"
 						:use-save-button="false"
 						:editor-toolbar="customToolbar"
-						@editor-updated="handleUpdatedContent">						
+						@editor-updated="handleUpdatedContent"						
+  						@save-content="handleSavingContent">						
 					</vue-editor>
 
 					<input type="hidden" name="content" v-model="form.content">
@@ -178,7 +179,7 @@
 				.then(response => {
 					this.retreivingData = false;
 					this.form.title = response.data.article.title;
-					this.form.content = this.content = response.data.article.content;
+					//this.form.content = this.content = response.data.article.content;
 					console.log(this.content);
 					this.form.excerpt = response.data.article.excerpt;
 					this.form.featured_image = response.data.article.featured_image;
@@ -187,6 +188,9 @@
 					this.featured_image_path = response.data.article.featured_image_url;					
 					this.getCategories(response.data.categories);
 					this.getTags(response.data.tags);
+					this.$nextTick(() => {
+						this.form.content = this.content = response.data.article.content;
+					})
 				})
 				.catch(error => {
 					console.log(error.response.data);
@@ -205,6 +209,10 @@
             generateSlug() {
                 return this.form.slug = this.form.title.trim().toLowerCase().replace(/ /g, '-');
             },
+
+			handleSavingContent(value) {
+				this.form.content = value;
+			},
 
 			handleUpdatedContent(value) {
 				this.form.content = value;
