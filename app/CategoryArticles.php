@@ -14,4 +14,9 @@ class CategoryArticles extends Model
     {
     	return $this->hasOne('App\Category', 'id', 'category_id');
     }
+
+    public function article()
+    {
+    	return $this->hasOne('App\Article', 'id', 'article_id');
+    }
 }

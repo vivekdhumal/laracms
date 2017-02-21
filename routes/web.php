@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',  'BlogController@index');
+
+Route::get('/article/{slug}',  'BlogController@article');
+
+Route::get('/category/{slug}',  'BlogController@category');
+
+Route::get('/tag/{slug}',  'BlogController@tag');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){	
 	Auth::routes();

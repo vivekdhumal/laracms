@@ -14,4 +14,9 @@ class TagArticles extends Model
     {
     	return $this->hasOne('App\Tag', 'id', 'tag_id');
     }
+
+    public function article()
+    {
+    	return $this->hasOne('App\Article', 'id', 'article_id');
+    }
 }

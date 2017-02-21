@@ -18600,6 +18600,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -47452,7 +47457,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container"
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-8"
+  }, [(_vm.id) ? _c('span', [_vm._v("\r\n\t\t\t\t\t\tEdit Post\r\n\t\t\t\t\t")]) : _c('span', [_vm._v("\r\n\t\t\t\t\t\tNew Post\r\n\t\t\t\t\t")])])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [(_vm.retreivingData) ? _c('div', [_c('h3', {
     staticClass: "text-center"
@@ -47739,15 +47750,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "disabled": _vm.isSubmiting
     }
   }, [_vm._v("Cancel")])], 1)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-heading"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8"
-  }, [_c('h4', [_vm._v("Posts")])])])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -48289,7 +48292,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-md-8"
-  }, [_c('h4', [_vm._v("Posts")])])
+  }, [_c('span', [_vm._v("Posts")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Title")]), _vm._v(" "), _c('th', [_vm._v("Categories")]), _vm._v(" "), _c('th', [_vm._v("Status")]), _vm._v(" "), _c('th')])])
 }]}

@@ -4,7 +4,12 @@
 		<div class="panel-heading">
 			<div class="row">
 				<div class="col-md-8">
-					<h4>Posts</h4>
+					<span v-if="id">
+						Edit Post
+					</span>
+					<span v-else>
+						New Post
+					</span>
 				</div>
 			</div>
 		</div>

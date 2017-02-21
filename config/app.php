@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kolkata',
 
     /*
     |--------------------------------------------------------------------------
@@ -181,6 +181,11 @@ return [
         * Laravel passport
         */
         Laravel\Passport\PassportServiceProvider::class,
+
+        /*
+        * Composer Service Provider
+        */
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 
