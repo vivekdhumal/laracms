@@ -9,9 +9,15 @@ class BlogController extends Controller
 {
 	protected $theme = 'default';
 
-    public function index()
+    public function index(Request $request)
     {
-    	$data['articles'] = Article::where('status', 'published')->get();
+    	$articles = new Article;
+
+    	if($request->has('search')) {
+    		$articles = $articles->quickSearch($request->input('search'));
+    	}
+
+    	$data['articles'] = $articles->where('status', 'published')->get();
 
     	return view('themes/'.$this->theme.'/home', $data);
     }

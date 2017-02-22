@@ -19,4 +19,10 @@ class Article extends Model
     {
     	return $this->hasMany('App\TagArticles')->with('tag');
     }
+
+    public function scopeQuickSearch($query, $keyword)
+    {
+        return $query->where('title', 'like', "%$keyword%")
+                    ->orWhere('content', 'like', "%$keyword%");
+    }
 }

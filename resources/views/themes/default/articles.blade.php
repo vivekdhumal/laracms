@@ -17,7 +17,9 @@
 
 						<p>{{ $article->article->excerpt }}</p>
 					</a>
+					@if (!$loop->last)
 					<hr>
+					@endif
 				</article>
 			@endforeach
 		@else
@@ -27,12 +29,8 @@
 		@endif
 	</div>
 
-	<div class="col-md-3 col-sm-offset-1"><br>
-		<form>
-			<input type="text" class="form-control" name="search" placeholder="Search">
-		</form>
-		@include('themes.default.partials.categories')
-		@include('themes.default.partials.tags')
+	<div class="col-md-3 col-sm-offset-1">
+		@include('themes.default.partials.sidebar')
 	</div>
 </div>
 @endsection

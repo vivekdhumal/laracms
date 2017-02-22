@@ -47,6 +47,25 @@
     		font-size: 15px;
     		display: inline-block;
     	}
+    	#blogContent {
+   			margin: 20px 0 30px 0;
+    	}
+    	footer.blog-footer {
+			padding: 40px 0;
+			color: #999;
+			text-align: center;
+			background-color: #f9f9f9;
+			border-top: 1px solid #e5e5e5;
+    	}
+    	.category-list {
+    		margin-top: 15px;
+    	}
+    	.category-list li {
+    		margin-bottom: 10px;
+    	}
+    	.category-list li .badge {
+    		background:#5bc0de;
+    	}
     </style>
 </head>
 <body>
@@ -56,15 +75,14 @@
 		<p class="text-muted">Your blog description goes here.</p>
 
 		<hr>
-
-		@yield('content')
-	</div>
-	<div class="cotainer-fluid">
-		<div class="well">
-			<p class="text-center">
-				&copy; LaraCMS
-			</p>
+		<div id="blogContent">
+			@yield('content')			
 		</div>
 	</div>
+	<footer class="blog-footer">
+		<p class="text-center">
+			&copy; LaraCMS
+		</p>
+	</footer>
 </body>
 </html>
