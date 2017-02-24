@@ -27,6 +27,20 @@ let routes = [
 	{
 		path: '/tags',
 		component: require('./components/Tag')
+	},
+	{
+		path: '/users',
+		component: require('./components/users/Users'),
+	},
+	{
+		path: '/users/add',
+		component: require('./components/users/UserForm'),
+	},
+	{
+		path: '/users/edit/:id',
+		name: 'edit-user',
+		component: require('./components/users/UserForm'),
+		props: true
 	}
 ];
 

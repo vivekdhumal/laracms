@@ -43,4 +43,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 	Route::resource('/blog-articles', 'ArticleController', [ 'except' => ['create', 'show'] ]);
 
 	Route::post('/blog-articles/file-upload', 'ArticleController@fileUpload');
+
+	Route::resource('/blog-users', 'UserController', ['except' => ['create', 'show'] ]);
 });

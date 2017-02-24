@@ -46,7 +46,7 @@
 				<div class="form-group">
 					<label>Excerpt</label>
 
-					<textarea class="form-control editor" v-model="form.excerpt" name="excerpt"></textarea>
+					<textarea class="form-control editor" v-model="form.excerpt" name="excerpt" rows="5"></textarea>
 				</div>
 
 				<div class="form-group">
