@@ -75,7 +75,7 @@
                             </tbody>
                         </table>
                         <paginator
-                            pagination-base-url="/admin/blog-categories"
+                            pagination-base-url="/admin/categories"
                             :next-page-url="categories.next_page_url"
                             :prev-page-url="categories.prev_page_url"
                             :result-set="categories">                                
@@ -134,11 +134,11 @@
                 let formSubmit, successMessage;
 
                 if(this.form.action == 'Update') {
-                    formSubmit = this.form.submit('patch', '/admin/blog-categories/'+this.form.id)
+                    formSubmit = this.form.submit('patch', '/admin/categories/'+this.form.id)
 
                     successMessage = "Record has been updated";
                 } else {
-                    formSubmit = this.form.submit('post', '/admin/blog-categories')
+                    formSubmit = this.form.submit('post', '/admin/categories')
 
                     successMessage = "Record has been created";
                 }

@@ -1,15 +1,15 @@
 class User {
 
 	static all() {
-		return axios.get("/admin/blog-users");
+		return axios.get("/admin/users");
 	}
 
 	static edit(id) {
-		return axios.get("/admin/blog-users/"+id+"/edit");
+		return axios.get("/admin/users/"+id+"/edit");
 	}
 
 	static delete(id) {
-		return axios.delete("/admin/blog-users/"+id);
+		return axios.delete("/admin/users/"+id);
 	}
 }
 

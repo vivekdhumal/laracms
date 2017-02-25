@@ -231,10 +231,10 @@
 				console.log(this.id);
 
 				if(this.id > 0) {
-					form_submit = this.form.submit('patch', '/admin/blog-articles/'+this.id);
+					form_submit = this.form.submit('patch', '/admin/articles/'+this.id);
 					success_message = "Record has been updated";
 				} else {
-					form_submit = this.form.submit('post', '/admin/blog-articles');
+					form_submit = this.form.submit('post', '/admin/articles');
 					success_message = "Record has been created";
 				}
 				
@@ -303,7 +303,7 @@
 
 	            this.file_uploading = true;
 
-	            axios.post('/admin/blog-articles/file-upload', formData)
+	            axios.post('/admin/articles/file-upload', formData)
 	            .then(response => {
 	            	console.log(response.data);
 

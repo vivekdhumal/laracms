@@ -1,15 +1,15 @@
 class Tag {
 
 	static all() {
-		return axios.get("/admin/blog-tags");
+		return axios.get("/admin/tags");
 	}
 
 	static withoutPagination() {
-		return axios.get("/admin/blog-tags/all");
+		return axios.get("/admin/tags/all");
 	}
 
 	static delete(id) {
-		return axios.delete("/admin/blog-tags/"+id);
+		return axios.delete("/admin/tags/"+id);
 	}
 }
 

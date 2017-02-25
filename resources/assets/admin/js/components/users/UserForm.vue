@@ -110,10 +110,10 @@
 				console.log(this.id);
 
 				if(this.id > 0) {
-					form_submit = this.form.submit('patch', '/admin/blog-users/'+this.id);
+					form_submit = this.form.submit('patch', '/admin/users/'+this.id);
 					success_message = "Record has been updated";
 				} else {
-					form_submit = this.form.submit('post', '/admin/blog-users');
+					form_submit = this.form.submit('post', '/admin/users');
 					success_message = "Record has been created";
 				}
 				

@@ -12,11 +12,6 @@ class CategoryController extends Controller
     {
         $this->middleware('auth');
     }
-    
-	public function desk()
-	{
-    	return view('categories.index');
-	}
 
     public function index()
     {

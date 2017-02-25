@@ -12,11 +12,6 @@ class TagController extends Controller
     {
         $this->middleware('auth');
     }
-    
-	public function desk()
-	{
-    	return view('tags.index');
-	}
 
     public function index()
     {

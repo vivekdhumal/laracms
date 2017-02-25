@@ -13,11 +13,6 @@ class ArticleController extends Controller
         $this->middleware('auth');
     }
 
-    public function desk()
-    {
-    	return view('posts.index');
-    }
-
     public function index()
     {
     	$articles = Article::with('categories')->paginate(10);

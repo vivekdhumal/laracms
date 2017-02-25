@@ -26,23 +26,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
 	Route::get('/home', 'HomeController@index');
 
-	Route::get('/categories', 'CategoryController@desk')->name('admin.categories');
+	Route::resource('/categories', 'CategoryController', ['except' => ['create', 'edit', 'show'] ]);
 
-	Route::resource('/blog-categories', 'CategoryController', ['except' => ['create', 'edit', 'show'] ]);
+	Route::get('/categories/all', 'CategoryController@allCategories');
 
-	Route::get('/blog-categories/all', 'CategoryController@allCategories');
+	Route::resource('/tags', 'TagController', ['except' => ['create', 'edit', 'show'] ]);
 
-	Route::get('/tags', 'TagController@desk')->name('admin.tags');
+	Route::get('/tags/all', 'TagController@allTags');
 
-	Route::resource('/blog-tags', 'TagController', ['except' => ['create', 'edit', 'show'] ]);
+	Route::resource('/articles', 'ArticleController', [ 'except' => ['create', 'show'] ]);
 
-	Route::get('/blog-tags/all', 'TagController@allTags');
+	Route::post('/articles/file-upload', 'ArticleController@fileUpload');
 
-	Route::get('/posts', 'ArticleController@desk')->name('admin.posts');
-
-	Route::resource('/blog-articles', 'ArticleController', [ 'except' => ['create', 'show'] ]);
-
-	Route::post('/blog-articles/file-upload', 'ArticleController@fileUpload');
-
-	Route::resource('/blog-users', 'UserController', ['except' => ['create', 'show'] ]);
+	Route::resource('/users', 'UserController', ['except' => ['create', 'show'] ]);
 });

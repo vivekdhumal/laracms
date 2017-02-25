@@ -46,7 +46,7 @@
 				<h3 class="text-center">Loading..</h3>
 			</div>
             <paginator
-                pagination-base-url="/admin/blog-articles"
+                pagination-base-url="/admin/articles"
                 :next-page-url="articles.next_page_url"
                 :prev-page-url="articles.prev_page_url"
                 :result-set="articles">                                

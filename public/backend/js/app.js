@@ -12061,17 +12061,17 @@ var Article = function () {
 	_createClass(Article, null, [{
 		key: "all",
 		value: function all() {
-			return axios.get("/admin/blog-articles");
+			return axios.get("/admin/articles");
 		}
 	}, {
 		key: "edit",
 		value: function edit(id) {
-			return axios.get("/admin/blog-articles/" + id + "/edit");
+			return axios.get("/admin/articles/" + id + "/edit");
 		}
 	}, {
 		key: "delete",
 		value: function _delete(id) {
-			return axios.delete("/admin/blog-articles/" + id);
+			return axios.delete("/admin/articles/" + id);
 		}
 	}]);
 
@@ -12097,17 +12097,17 @@ var Category = function () {
 	_createClass(Category, null, [{
 		key: "all",
 		value: function all() {
-			return axios.get("/admin/blog-categories");
+			return axios.get("/admin/categories");
 		}
 	}, {
 		key: "withoutPagination",
 		value: function withoutPagination() {
-			return axios.get("/admin/blog-categories/all");
+			return axios.get("/admin/categories/all");
 		}
 	}, {
 		key: "delete",
 		value: function _delete(id) {
-			return axios.delete("/admin/blog-categories/" + id);
+			return axios.delete("/admin/categories/" + id);
 		}
 	}]);
 
@@ -12133,17 +12133,17 @@ var Tag = function () {
 	_createClass(Tag, null, [{
 		key: "all",
 		value: function all() {
-			return axios.get("/admin/blog-tags");
+			return axios.get("/admin/tags");
 		}
 	}, {
 		key: "withoutPagination",
 		value: function withoutPagination() {
-			return axios.get("/admin/blog-tags/all");
+			return axios.get("/admin/tags/all");
 		}
 	}, {
 		key: "delete",
 		value: function _delete(id) {
-			return axios.delete("/admin/blog-tags/" + id);
+			return axios.delete("/admin/tags/" + id);
 		}
 	}]);
 
@@ -12169,17 +12169,17 @@ var User = function () {
 	_createClass(User, null, [{
 		key: "all",
 		value: function all() {
-			return axios.get("/admin/blog-users");
+			return axios.get("/admin/users");
 		}
 	}, {
 		key: "edit",
 		value: function edit(id) {
-			return axios.get("/admin/blog-users/" + id + "/edit");
+			return axios.get("/admin/users/" + id + "/edit");
 		}
 	}, {
 		key: "delete",
 		value: function _delete(id) {
-			return axios.delete("/admin/blog-users/" + id);
+			return axios.delete("/admin/users/" + id);
 		}
 	}]);
 
@@ -18017,11 +18017,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 successMessage = void 0;
 
             if (this.form.action == 'Update') {
-                formSubmit = this.form.submit('patch', '/admin/blog-categories/' + this.form.id);
+                formSubmit = this.form.submit('patch', '/admin/categories/' + this.form.id);
 
                 successMessage = "Record has been updated";
             } else {
-                formSubmit = this.form.submit('post', '/admin/blog-categories');
+                formSubmit = this.form.submit('post', '/admin/categories');
 
                 successMessage = "Record has been created";
             }
@@ -18323,11 +18323,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 successMessage = void 0;
 
             if (this.form.action == 'Update') {
-                formSubmit = this.form.submit('patch', '/admin/blog-tags/' + this.form.id);
+                formSubmit = this.form.submit('patch', '/admin/tags/' + this.form.id);
 
                 successMessage = "Record has been updated";
             } else {
-                formSubmit = this.form.submit('post', '/admin/blog-tags');
+                formSubmit = this.form.submit('post', '/admin/tags');
 
                 successMessage = "Record has been created";
             }
@@ -18780,10 +18780,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			console.log(this.id);
 
 			if (this.id > 0) {
-				form_submit = this.form.submit('patch', '/admin/blog-articles/' + this.id);
+				form_submit = this.form.submit('patch', '/admin/articles/' + this.id);
 				success_message = "Record has been updated";
 			} else {
-				form_submit = this.form.submit('post', '/admin/blog-articles');
+				form_submit = this.form.submit('post', '/admin/articles');
 				success_message = "Record has been created";
 			}
 
@@ -18855,7 +18855,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.file_uploading = true;
 
-			axios.post('/admin/blog-articles/file-upload', formData).then(function (response) {
+			axios.post('/admin/articles/file-upload', formData).then(function (response) {
 				console.log(response.data);
 
 				swal({
@@ -19007,10 +19007,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			console.log(this.id);
 
 			if (this.id > 0) {
-				form_submit = this.form.submit('patch', '/admin/blog-users/' + this.id);
+				form_submit = this.form.submit('patch', '/admin/users/' + this.id);
 				success_message = "Record has been updated";
 			} else {
-				form_submit = this.form.submit('post', '/admin/blog-users');
+				form_submit = this.form.submit('post', '/admin/users');
 				success_message = "Record has been created";
 			}
 
@@ -48508,7 +48508,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("No Data Available")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), _c('paginator', {
     attrs: {
-      "pagination-base-url": "/admin/blog-tags",
+      "pagination-base-url": "/admin/tags",
       "next-page-url": _vm.tags.next_page_url,
       "prev-page-url": _vm.tags.prev_page_url,
       "result-set": _vm.tags
@@ -48753,7 +48753,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("No Data Available")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), _c('paginator', {
     attrs: {
-      "pagination-base-url": "/admin/blog-categories",
+      "pagination-base-url": "/admin/categories",
       "next-page-url": _vm.categories.next_page_url,
       "prev-page-url": _vm.categories.prev_page_url,
       "result-set": _vm.categories
@@ -48837,7 +48837,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-center"
   }, [_vm._v("Loading..")])]), _vm._v(" "), _c('paginator', {
     attrs: {
-      "pagination-base-url": "/admin/blog-articles",
+      "pagination-base-url": "/admin/articles",
       "next-page-url": _vm.articles.next_page_url,
       "prev-page-url": _vm.articles.prev_page_url,
       "result-set": _vm.articles
@@ -48946,7 +48946,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-center"
   }, [_vm._v("Loading..")])]), _vm._v(" "), _c('paginator', {
     attrs: {
-      "pagination-base-url": "/admin/blog-users",
+      "pagination-base-url": "/admin/users",
       "next-page-url": _vm.users.next_page_url,
       "prev-page-url": _vm.users.prev_page_url,
       "result-set": _vm.users

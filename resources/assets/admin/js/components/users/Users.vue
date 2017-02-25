@@ -39,7 +39,7 @@
 				<h3 class="text-center">Loading..</h3>
 			</div>
             <paginator
-                pagination-base-url="/admin/blog-users"
+                pagination-base-url="/admin/users"
                 :next-page-url="users.next_page_url"
                 :prev-page-url="users.prev_page_url"
                 :result-set="users">                                

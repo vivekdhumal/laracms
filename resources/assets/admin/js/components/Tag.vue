@@ -63,7 +63,7 @@
                             </tbody>
                         </table>
                         <paginator
-                            pagination-base-url="/admin/blog-tags"
+                            pagination-base-url="/admin/tags"
                             :next-page-url="tags.next_page_url"
                             :prev-page-url="tags.prev_page_url"
                             :result-set="tags">                                
@@ -120,11 +120,11 @@
                 let formSubmit, successMessage;
 
                 if(this.form.action == 'Update') {
-                    formSubmit = this.form.submit('patch', '/admin/blog-tags/'+this.form.id)
+                    formSubmit = this.form.submit('patch', '/admin/tags/'+this.form.id)
 
                     successMessage = "Record has been updated";
                 } else {
-                    formSubmit = this.form.submit('post', '/admin/blog-tags')
+                    formSubmit = this.form.submit('post', '/admin/tags')
 
                     successMessage = "Record has been created";
                 }
