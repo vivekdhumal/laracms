@@ -70,9 +70,9 @@
 </head>
 <body>
 	<div class="container">
-		<a href="{{ url('/') }}"><h1>Blog Title</h1></a>
+		<a href="{{ url('/') }}"><h1>{{ config('blog.blog_title', 'Blog Title') }}</h1></a>
 
-		<p class="text-muted">Your blog description goes here.</p>
+		<p class="text-muted">{{ config('blog.blog_description', 'Your blog description goes here.') }}</p>
 
 		<hr>
 		<div id="blogContent">
