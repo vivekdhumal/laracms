@@ -27,7 +27,11 @@ Laravel and vue js based cms starter project for blogs
 
 ## Install node modules
 <code>
-	npm install<br>
-	npm install vue-router<br>
+	npm install
+</code>
+<code>
+	npm install vue-router
+</code>
+<code>
 	npm install sweetalert
 </code>
