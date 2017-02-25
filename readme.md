@@ -4,8 +4,9 @@ Laravel and vue js based cms starter project for blogs
 
 ## Tech Stack
 - Laravel 5.4
-- Vue 2.0
+- Vue Js 2.0
 - Mysql / MariaDb
+- Node Js
 
 ## Requirement
 - PHP >= 5.6.4
