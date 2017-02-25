@@ -17,7 +17,7 @@ class BlogController extends Controller
     		$articles = $articles->quickSearch($request->input('search'));
     	}
 
-    	$data['articles'] = $articles->where('status', 'published')->get();
+    	$data['articles'] = $articles->where('status', 'published')->paginate(6);
 
     	return view('themes/'.$this->theme.'/home', $data);
     }
@@ -33,7 +33,7 @@ class BlogController extends Controller
     {
     	$category = \App\Category::where('slug', $slug)->firstOrFail();
 
-    	$data['articles'] = $category->articles;
+    	$data['articles'] = $category->articles()->paginate(6);
 
     	return view('themes/'.$this->theme.'/articles', $data);
     }
@@ -42,7 +42,7 @@ class BlogController extends Controller
     {
     	$tag = \App\Tag::where('slug', $slug)->firstOrFail();
 
-    	$data['articles'] = $tag->articles;
+    	$data['articles'] = $tag->articles()->paginate(6);
 
     	return view('themes/'.$this->theme.'/articles', $data);
     }

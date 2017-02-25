@@ -21,6 +21,9 @@
 					<hr>
 					@endif
 				</article>
+				<div class="pull-right">
+					{!! $articles->links() !!}
+				</div>
 			@endforeach
 		@else
 			<div class="well">
