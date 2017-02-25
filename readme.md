@@ -2,12 +2,12 @@
 
 Laravel and vue js based cms starter project for blogs
 
-# Tech Stack
+## Tech Stack
 - Laravel 5.4
 - Vue 2.0
 - Mysql / MariaDb
 
-# Requirement
+## Requirement
 - PHP >= 5.6.4
 - OpenSSL PHP Extension
 - PDO PHP Extension
@@ -15,17 +15,17 @@ Laravel and vue js based cms starter project for blogs
 - Tokenizer PHP Extension
 - XML PHP Extension
 
-# Install Project
+## Install Project
 <code>
 	composer install
 </code>
 
-# Database Migrations
+## Database Migrations
 <code>
 	php artisan migrate
 </code>
 
-# Install node modules
+## Install node modules
 <code>
 	npm install
 </code>
