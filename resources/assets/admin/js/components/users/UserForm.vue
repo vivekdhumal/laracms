@@ -59,7 +59,6 @@
 </style>
 
 <script>
-    import Form from '../../core/Form';
 	import User from '../../models/User';
 
 	export default {
@@ -110,10 +109,10 @@
 				console.log(this.id);
 
 				if(this.id > 0) {
-					form_submit = this.form.submit('patch', '/admin/users/'+this.id);
+					form_submit = this.form.put('/admin/users/'+this.id);
 					success_message = "Record has been updated";
 				} else {
-					form_submit = this.form.submit('post', '/admin/users');
+					form_submit = this.form.post('/admin/users');
 					success_message = "Record has been created";
 				}
 				

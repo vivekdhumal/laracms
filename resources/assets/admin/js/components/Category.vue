@@ -88,7 +88,6 @@
 </template>
 
 <script>
-    import Form from '../core/Form';
     import Category from '../models/Category';
 
     export default {
@@ -134,11 +133,11 @@
                 let formSubmit, successMessage;
 
                 if(this.form.action == 'Update') {
-                    formSubmit = this.form.submit('patch', '/admin/categories/'+this.form.id)
+                    formSubmit = this.form.put('/admin/categories/'+this.form.id)
 
                     successMessage = "Record has been updated";
                 } else {
-                    formSubmit = this.form.submit('post', '/admin/categories')
+                    formSubmit = this.form.post('/admin/categories')
 
                     successMessage = "Record has been created";
                 }

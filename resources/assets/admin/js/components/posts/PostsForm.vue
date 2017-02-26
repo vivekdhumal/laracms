@@ -121,7 +121,6 @@
 
 <script>
 	import { VueEditor } from 'vue2-editor';
-    import Form from '../../core/Form';
 	import Article from '../../models/Article';
     import Category from '../../models/Category';
     import Tag from '../../models/Tag';
@@ -231,10 +230,10 @@
 				console.log(this.id);
 
 				if(this.id > 0) {
-					form_submit = this.form.submit('patch', '/admin/articles/'+this.id);
+					form_submit = this.form.put('/admin/articles/'+this.id);
 					success_message = "Record has been updated";
 				} else {
-					form_submit = this.form.submit('post', '/admin/articles');
+					form_submit = this.form.post('/admin/articles');
 					success_message = "Record has been created";
 				}
 				

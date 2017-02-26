@@ -14,6 +14,8 @@ import 'bootstrap-sass';
 
 import 'sweetalert';
 
+import Form from './core/Form';
+
 window._ = Lodash;
 
 window.$ = window.jQuery = JQuery;
@@ -43,3 +45,5 @@ window.Event = new class {
 		this.vue.$on(event, callback);
 	}
 };
+
+window.Form = Form;

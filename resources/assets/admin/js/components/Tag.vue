@@ -76,7 +76,6 @@
 </template>
 
 <script>
-    import Form from '../core/Form';
     import Tag from '../models/Tag';
 
     export default {
@@ -120,11 +119,11 @@
                 let formSubmit, successMessage;
 
                 if(this.form.action == 'Update') {
-                    formSubmit = this.form.submit('patch', '/admin/tags/'+this.form.id)
+                    formSubmit = this.form.put('/admin/tags/'+this.form.id)
 
                     successMessage = "Record has been updated";
                 } else {
-                    formSubmit = this.form.submit('post', '/admin/tags')
+                    formSubmit = this.form.post('/admin/tags')
 
                     successMessage = "Record has been created";
                 }
