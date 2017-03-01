@@ -13,12 +13,14 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('themes.default.partials.categories', function($view) {
+        $theme = config('blog.blog_theme', 'default');
+
+        view()->composer('themes.'.$theme.'.partials.categories', function($view) {
             $categories = \App\Category::all();
             $view->with('categories', $categories);
         });
 
-        view()->composer('themes.default.partials.tags', function($view) {
+        view()->composer('themes.'.$theme.'.partials.tags', function($view) {
             $tags = \App\Tag::all();
             $view->with('tags', $tags);
         });
